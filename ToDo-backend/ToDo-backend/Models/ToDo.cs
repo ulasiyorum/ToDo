@@ -1,8 +1,11 @@
-﻿namespace ToDo_backend.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace ToDo_backend.Models
 {
     public class ToDo
     {
-        public int Id;
+        [Key]
+        public int Id { get; set; }
         public string Title { get; set; } = "Example ToDo";
         public string Description { get; set; } = "ToDo description";
         public int Priority { get; set; } = 0;
