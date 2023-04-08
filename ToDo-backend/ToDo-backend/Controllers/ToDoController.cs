@@ -37,5 +37,11 @@ namespace ToDo_backend.Controllers
         {
             return Ok(await service.Add(add));
         }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<ServiceResponse<List<GetToDoDto>>>> GetById(int id)
+        {
+            return Ok(await service.GetByUser(id));
+        }
     }
 }

@@ -84,6 +84,23 @@ namespace ToDo_backend.Services.ToDoService
             return response;
         }
 
+        public async Task<ServiceResponse<List<GetToDoDto>>> GetByUser(int id)
+        {
+            var response = new ServiceResponse<List<GetToDoDto>>();
+            try
+            {
+                var list = await context.ToDoList.Where(item => item.Id == id).Select(item => mapper.Map<GetToDoDto>(item)).ToListAsync();
+                response.Data = list;
+            }
+            catch (Exception ex)
+            {
+                response.Success = false;
+                response.Message = ex.Message;
+            }
+
+            return response;
+        }
+
         public async Task<ServiceResponse<List<GetToDoDto>>> Update(UpdateToDoDto updateDto)
         {
             var response = new ServiceResponse<List<GetToDoDto>>();

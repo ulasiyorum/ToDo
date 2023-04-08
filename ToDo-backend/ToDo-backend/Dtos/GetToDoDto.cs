@@ -8,5 +8,6 @@
         public int Priority { get; set; } = 0;
         public DateTime Due { get; set; } = (DateTime.Now).AddDays(1);
         public DateTime StartTime { get; set; } = DateTime.Now;
+        public int UserId { get; set; }
     }
 }

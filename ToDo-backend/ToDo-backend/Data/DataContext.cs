@@ -10,7 +10,7 @@ namespace ToDo_backend.Data
         }
 
         public DbSet<ToDo> ToDoList { get; set; }
-
+        public DbSet<User> Users { get; set; }
     }
 
 
