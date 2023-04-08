@@ -7,6 +7,5 @@
         public string Description { get; set; } = "ToDo description";
         public int Priority { get; set; } = 0;
         public DateTime Due { get; set; } = (DateTime.Now).AddDays(1);
-        public DateTime StartTime { get; set; } = DateTime.Now;
     }
 }
