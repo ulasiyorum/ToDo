@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { login, register } from '../lib/user';
+import ToDoList from '../Components/ToDoList';
 function App() {
 
   const [user,setUser] = useState(null);
@@ -27,7 +28,7 @@ function App() {
 
 
   return user ? (
-    <div>Hello {user.name}</div>
+    <ToDoList user={user}/>
   ) : (<button onClick={registerEvent}>Register</button>)
 }
 
