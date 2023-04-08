@@ -19,5 +19,23 @@ namespace ToDo_backend.Controllers
         {
             return Ok(await service.GetAll());
         }
+
+        [HttpDelete]
+        public async Task<ActionResult<ServiceResponse<List<GetToDoDto>>>> Delete(int id)
+        {
+            return Ok(await service.Delete(id));
+        }
+
+        [HttpPut]
+        public async Task<ActionResult<ServiceResponse<List<GetToDoDto>>>> Update(UpdateToDoDto update)
+        {
+            return Ok(await service.Update(update));
+        }
+
+        [HttpPost]
+        public async Task<ActionResult<ServiceResponse<List<GetToDoDto>>>> Add(AddToDoDto add)
+        {
+            return Ok(await service.Add(add));
+        }
     }
 }
