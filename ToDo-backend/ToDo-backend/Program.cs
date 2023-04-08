@@ -1,5 +1,7 @@
+using ToDo_backend.Controllers;
 using ToDo_backend.Data;
 using ToDo_backend.Services.ToDoService;
+using ToDo_backend.Services.UserService;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +13,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IToDoService, ToDoService>();
+builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
 
 builder.Services.AddCors(options =>
