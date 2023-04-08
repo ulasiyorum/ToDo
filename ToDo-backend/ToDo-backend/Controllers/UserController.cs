@@ -15,19 +15,19 @@ namespace ToDo_backend.Controllers
             this.service = service;
         }
 
-        [HttpGet]
+        [HttpGet("Login")]
         public async Task<ActionResult<ServiceResponse<GetUserDto>>> Login(string key)
         {
             return Ok(await service.Login(key));
         }
 
-        [HttpPost]
+        [HttpPost("Register")]
         public async Task<ActionResult<ServiceResponse<GetUserDto>>> Register()
         {
             return Ok(await service.Register());
         }
 
-        [HttpPut]
+        [HttpPut("Rename")]
         public async Task<ActionResult<ServiceResponse<GetUserDto>>> Update(UpdateUserDto dto)
         {
             return Ok(await service.Update(dto));
