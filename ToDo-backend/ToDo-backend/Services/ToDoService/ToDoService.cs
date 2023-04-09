@@ -89,7 +89,7 @@ namespace ToDo_backend.Services.ToDoService
             var response = new ServiceResponse<List<GetToDoDto>>();
             try
             {
-                var list = await context.ToDoList.Where(item => item.Id == id).Select(item => mapper.Map<GetToDoDto>(item)).ToListAsync();
+                var list = await context.ToDoList.Where(item => item.UserId == id).Select(item => mapper.Map<GetToDoDto>(item)).ToListAsync();
                 response.Data = list;
             }
             catch (Exception ex)

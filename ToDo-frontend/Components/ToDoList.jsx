@@ -1,12 +1,13 @@
 import Container from '@mui/material/Container';
-import { Box, Button, Input, TextField } from '@mui/material';
+import { Box, Button, IconButton, Input, List, ListItem, ListItemText, TextField } from '@mui/material';
 import { useEffect, useState } from 'react';
 import getToDosByUser, { addToDo } from '../lib/todo';
+import InteractiveList from './InteractiveList';
 
 
 export default function ToDoList({user}) {
     
-    const [list,setList] = useState([]);
+    const [list,setList] = useState(null);
     const [form,setForm] = useState({});
     useEffect(() => {
 
@@ -25,16 +26,17 @@ export default function ToDoList({user}) {
     }
     const sendForm = async () => {
         await addToDo(form,user.id);
-        setList(await getToDosByUser(user.id));
+        const _list = await getToDosByUser(user.id);
+        setList(_list.data);
     }
-    return (
+    return list ? (
         <Container sx={{width:'100vw',height:'100vh',display:'flex',justifyContent:'center',flexDirection:'column'}}>
             <Box sx={{marginX:'auto'}}>Welcome {user.name}</Box>
             {
                 list.length == 0 ? (
                 <Box sx={{marginX:'auto'}}>Nothing to show here..</Box>
                 ) : (
-                <Box>{list.length}</Box>
+                <ToDoComponent list={list}/>
                 )
             }
             <Box sx={{marginX:'auto'}}>
@@ -45,9 +47,14 @@ export default function ToDoList({user}) {
             </Box>
             <Button variant='outlined' onClick={sendForm} sx={{width:'100px', marginX:'auto'}}>Add</Button>
         </Container>
-    );
+    ) : (<div>Loading</div>);
 }
 
 function ToDoComponent(props){
 
+    return (
+        <Box sx={{marginX:'auto',marginY:'4px'}}>
+            <InteractiveList list={props.list} onDelete={props.onDelete}/>
+        </Box>
+    );
 }
