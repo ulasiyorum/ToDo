@@ -1,7 +1,7 @@
 import Container from '@mui/material/Container';
 import { Box, Button, IconButton, Input, List, ListItem, ListItemText, TextField } from '@mui/material';
 import { useEffect, useState } from 'react';
-import getToDosByUser, { addToDo } from '../lib/todo';
+import getToDosByUser, { addToDo, deleteToDo } from '../lib/todo';
 import InteractiveList from './InteractiveList';
 
 
@@ -29,6 +29,13 @@ export default function ToDoList({user}) {
         const _list = await getToDosByUser(user.id);
         setList(_list.data);
     }
+
+    const delToDo = async (index) => {
+        await deleteToDo(list[index].id);
+        const _list = await getToDosByUser(user.id);
+        setList(_list.data);
+    }
+    console.log(list);
     return list ? (
         <Container sx={{width:'100vw',height:'100vh',display:'flex',justifyContent:'center',flexDirection:'column'}}>
             <Box sx={{marginX:'auto'}}>Welcome {user.name}</Box>
@@ -36,7 +43,7 @@ export default function ToDoList({user}) {
                 list.length == 0 ? (
                 <Box sx={{marginX:'auto'}}>Nothing to show here..</Box>
                 ) : (
-                <ToDoComponent list={list}/>
+                <ToDoComponent onDelete={delToDo} list={list}/>
                 )
             }
             <Box sx={{marginX:'auto'}}>

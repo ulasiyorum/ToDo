@@ -32,3 +32,17 @@ export async function addToDo(obj,id) {
   return data.json();
 
 }
+
+export async function deleteToDo(id) {
+  const link = "https://localhost:7198/api/v1/ToDo?id=" + id;
+
+  const data = await fetch(link, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+
+    return data.json();
+
+}
