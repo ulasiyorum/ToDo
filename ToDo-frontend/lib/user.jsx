@@ -23,3 +23,20 @@ export async function login(key) {
       return data.json();
 
 }
+
+export async function rename(name,id) {
+  const data = await fetch("https://localhost:7198/api/v1/User/Rename", {
+    method: 'PUT',
+    body: JSON.stringify(
+      {
+        id:id,
+        name:name
+      }
+    ),
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  });
+
+  return data.json();
+}

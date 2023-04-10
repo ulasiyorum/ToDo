@@ -1,12 +1,15 @@
 import Container from '@mui/material/Container';
 import { Box, Button, IconButton, Input, List, ListItem, ListItemText, TextField } from '@mui/material';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import getToDosByUser, { addToDo, deleteToDo } from '../lib/todo';
 import InteractiveList from './InteractiveList';
-
+import EditIcon from '@mui/icons-material/Edit';
+import FormDialog from './FormDialog';
+import { rename } from '../lib/user';
 
 export default function ToDoList({user}) {
-    
+    const [name,setName] = useState("");
+    const [dialog,setDialog] = useState(false);
     const [list,setList] = useState(null);
     const [form,setForm] = useState({});
     useEffect(() => {
@@ -35,10 +38,16 @@ export default function ToDoList({user}) {
         const _list = await getToDosByUser(user.id);
         setList(_list.data);
     }
-    console.log(list);
+    const handleNameChange = async () => {
+        await rename(name,user.id);
+        setDialog(false);
+    }
     return list ? (
         <Container sx={{width:'100vw',height:'100vh',display:'flex',justifyContent:'center',flexDirection:'column'}}>
-            <Box sx={{marginX:'auto'}}>Welcome {user.name}</Box>
+            <FormDialog open={dialog} handleNameChange={handleNameChange} setName={setName} handleClose={() => setDialog(false)}/>
+            <Box sx={{marginX:'auto'}}>Welcome {user.name}<IconButton onClick={() => setDialog(true)}>
+                <EditIcon/>
+                </IconButton></Box>
             {
                 list.length == 0 ? (
                 <Box sx={{marginX:'auto'}}>Nothing to show here..</Box>
