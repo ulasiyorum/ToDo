@@ -2,7 +2,7 @@
 {
     public class UpdateToDoDto
     {
-        public int Id;
+        public int Id { get; set; }
         public string Title { get; set; } = "Example ToDo";
         public string Description { get; set; } = "ToDo description";
         public int Priority { get; set; } = 0;
