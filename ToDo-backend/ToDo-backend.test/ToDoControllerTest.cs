@@ -87,6 +87,26 @@ namespace ToDo_backend.test
 
             var res = okResult.Value as ServiceResponse<List<GetToDoDto>>;
             Assert.NotNull(res);
+            Assert.Equal("not found", res.Message.ToLower());
+        }
+
+        [Fact]
+        public async Task Update_ReturnsUpdatedToDoItem()
+        {
+            // Arrange
+            int itemId = 1;
+            var itemToUpdate = new UpdateToDoDto { Id = itemId ,Title = "Updated To-Do", Description = "Updated Description" };
+
+            // Act
+            var okResult = (await _controller.Update(itemToUpdate)).Result as OkObjectResult;
+
+            // Assert
+            Assert.NotNull(okResult);
+            Assert.IsType<ServiceResponse<List<GetToDoDto>>>(okResult.Value);
+
+            var res = okResult.Value as ServiceResponse<List<GetToDoDto>>;
+            Assert.NotNull(res);
+            Assert.Equal("not found", res.Message.ToLower());
         }
     }
 }
