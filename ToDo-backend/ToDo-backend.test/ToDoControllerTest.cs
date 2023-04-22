@@ -1,8 +1,11 @@
 using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using ToDo_backend.Controllers;
 using ToDo_backend.Data;
+using ToDo_backend.Dtos;
+using ToDo_backend.Services;
 using ToDo_backend.Services.ToDoService;
 
 namespace ToDo_backend.test
@@ -26,13 +29,24 @@ namespace ToDo_backend.test
             var dbContext = new DataContext(_options);
 
             _service = new ToDoService(_mapper,dbContext);
-            _controller = new ToDoController(_service, mapper);
+            _controller = new ToDoController(_service);
         }
 
         [Fact]
-        public void Test1()
+        public async Task GetAll_ReturnsListOfToDos()
         {
+            // Act
+            var result = await _service.GetAll();
 
+            var okResult = (await _controller.GetAll()).Result as OkObjectResult;
+
+            var res = okResult.Value as ServiceResponse<List<GetToDoDto>>;
+            Assert.NotNull(res);
+            Assert.True(res.Success);
+
+            // Assert
+            Assert.IsType<ServiceResponse<List<GetToDoDto>>>(result);
+            Assert.True(result.Success);
         }
     }
 }
