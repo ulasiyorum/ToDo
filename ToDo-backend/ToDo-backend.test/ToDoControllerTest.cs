@@ -71,5 +71,22 @@ namespace ToDo_backend.test
             Assert.NotNull(list);
             Assert.True(list.Success);
         }
+
+        [Fact]
+        public async Task Delete_ReturnsDeletedToDoItem()
+        {
+            // Arrange
+            int itemId = 1;
+
+            // Act
+            var okResult = (await _controller.Delete(itemId)).Result as OkObjectResult;
+
+            // Assert
+            Assert.NotNull(okResult);
+            Assert.IsType<ServiceResponse<List<GetToDoDto>>>(okResult.Value);
+
+            var res = okResult.Value as ServiceResponse<List<GetToDoDto>>;
+            Assert.NotNull(res);
+        }
     }
 }
